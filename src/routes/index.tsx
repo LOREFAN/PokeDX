@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const featured = [POKEDEX[1], POKEDEX[0], POKEDEX[4]];
+  const featured = [POKEDEX[1]!, POKEDEX[0]!, POKEDEX[4]!];
 
   return (
     <div className="min-h-screen bg-background">

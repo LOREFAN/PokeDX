@@ -30,7 +30,7 @@ function Quiz() {
   const [picked, setPicked] = useState<number | null>(null);
   const [done, setDone] = useState(false);
 
-  const question = QUIZ[current];
+  const question = QUIZ[current]!;
 
   function pick(index: number) {
     if (picked !== null) return;
