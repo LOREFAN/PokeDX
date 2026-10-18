@@ -1,32 +1,30 @@
 # PokéDX
 
-Site de fã do universo Pokémon: Pokédex com 50 Pokémon (clássicos e raros),
-jogo da memória em 25 fases e quiz com 25 perguntas em 3 etapas.
+Site de fã do universo Pokémon com Pokédex, jogo da memória e quiz.
 
-Este projeto foi construído com [Lovable](https://lovable.dev).
+**[Acessar demo](https://pokedx.lovable.app/)**
 
-## Build with Lovable
+## Funcionalidades
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+- **Pokédex:** 50 Pokémon (clássicos e raros) com busca por nome e filtro por categoria.
+- **Jogo da memória:** 25 fases de dificuldade crescente.
+- **Quiz:** 25 perguntas divididas em 3 etapas.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+## Tecnologias
 
-## Development
+TanStack Start, React, TypeScript e Tailwind CSS.
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Como rodar localmente
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
+```bash
+git clone https://github.com/LOREFAN/PokeDX.git
+cd PokeDX
 npm i
 npm run dev
 ```
 
-## Built with
+## Sobre o projeto
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+Projeto de estudo, criado com apoio do [Lovable](https://lovable.dev) (IA). Sem fins lucrativos.
+
+Pokémon e seus personagens são marcas da Nintendo, Game Freak e The Pokémon Company. Este projeto não é oficial e não tem vínculo com elas.
