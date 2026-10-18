@@ -7,12 +7,12 @@ import { POKEDEX, spriteUrl } from "@/lib/pokemon";
 export const Route = createFileRoute("/memoria")({
   head: () => ({
     meta: [
-      { title: "Jogo da Memória — PokéVerso" },
+      { title: "Jogo da Memória — PokéDX" },
       {
         name: "description",
         content: "Vire as cartas e encontre todos os pares de Pokémon em 25 fases cada vez mais difíceis.",
       },
-      { property: "og:title", content: "Jogo da Memória — PokéVerso" },
+      { property: "og:title", content: "Jogo da Memória — PokéDX" },
       {
         property: "og:description",
         content: "Vire as cartas e encontre todos os pares de Pokémon em 25 fases cada vez mais difíceis.",

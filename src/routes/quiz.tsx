@@ -7,12 +7,12 @@ import { QUIZ, QUIZ_STAGE_LABELS } from "@/lib/pokemon";
 export const Route = createFileRoute("/quiz")({
   head: () => ({
     meta: [
-      { title: "Quiz Pokémon — PokéVerso" },
+      { title: "Quiz Pokémon — PokéDX" },
       {
         name: "description",
         content: "Teste seus conhecimentos sobre o universo Pokémon com 25 perguntas em 3 etapas.",
       },
-      { property: "og:title", content: "Quiz Pokémon — PokéVerso" },
+      { property: "og:title", content: "Quiz Pokémon — PokéDX" },
       {
         property: "og:description",
         content: "Teste seus conhecimentos sobre o universo Pokémon com 25 perguntas em 3 etapas.",
