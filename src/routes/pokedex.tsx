@@ -114,6 +114,13 @@ function PokemonDetail({ pokemon, onClose }: { pokemon: Pokemon; onClose: () => 
           {pokemon.description}
         </p>
 
+        <div className="mt-6 rounded-2xl border border-border bg-secondary/40 p-4">
+          <h3 className="text-xs font-bold tracking-widest text-muted-foreground uppercase">
+            História
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{pokemon.history}</p>
+        </div>
+
         <div className="mt-6 space-y-2">
           {STAT_LEGEND.map((s) => (
             <StatBar key={s.abbr} label={s.abbr} value={pokemon[s.abbr === "HP" ? "hp" : s.abbr === "ATQ" ? "attack" : s.abbr === "DEF" ? "defense" : "speed"]} />
