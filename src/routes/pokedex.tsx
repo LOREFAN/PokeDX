@@ -1,9 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Search, X } from "lucide-react";
 import { SiteNav } from "@/components/site-nav";
 import { TypeBadge } from "@/components/type-badge";
-import { CATEGORY_LABELS, POKEDEX, spriteUrl, type PokemonCategory } from "@/lib/pokemon";
+import {
+  CATEGORY_LABELS,
+  POKEDEX,
+  spriteUrl,
+  type Pokemon,
+  type PokemonCategory,
+} from "@/lib/pokemon";
 
 export const Route = createFileRoute("/pokedex")({
   head: () => ({
@@ -25,6 +31,13 @@ export const Route = createFileRoute("/pokedex")({
   component: Pokedex,
 });
 
+const STAT_LEGEND = [
+  { abbr: "HP", name: "Pontos de Vida", hint: "Quanto dano o Pokémon aguenta antes de desmaiar." },
+  { abbr: "ATQ", name: "Ataque", hint: "A força dos golpes do Pokémon." },
+  { abbr: "DEF", name: "Defesa", hint: "Quanto dano ele consegue bloquear." },
+  { abbr: "VEL", name: "Velocidade", hint: "Quem ataca primeiro na batalha." },
+] as const;
+
 function StatBar({ label, value }: { label: string; value: number }) {
   const max = 160;
   return (
@@ -37,6 +50,92 @@ function StatBar({ label, value }: { label: string; value: number }) {
         />
       </div>
       <span className="w-7 text-right font-medium">{value}</span>
+    </div>
+  );
+}
+
+function PokemonDetail({ pokemon, onClose }: { pokemon: Pokemon; onClose: () => void }) {
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Detalhes de ${pokemon.name}`}
+    >
+      <div
+        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl border border-border bg-card p-6 card-glow sm:p-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-start justify-between">
+          <div>
+            <span className="text-xs font-bold text-muted-foreground">
+              #{String(pokemon.id).padStart(3, "0")}
+            </span>
+            <h2 className="text-3xl font-extrabold tracking-tight">{pokemon.name}</h2>
+            <p
+              className={`mt-1 text-xs font-semibold tracking-wide uppercase ${
+                pokemon.category === "raro" ? "text-accent" : "text-muted-foreground"
+              }`}
+            >
+              {CATEGORY_LABELS[pokemon.category]}
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            aria-label="Fechar"
+            className="rounded-full border border-border p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+          >
+            <X className="size-4" />
+          </button>
+        </div>
+
+        <img
+          src={spriteUrl(pokemon.id)}
+          alt={pokemon.name}
+          className="mx-auto my-4 size-44 drop-shadow-[0_0_30px_color-mix(in_oklab,var(--primary)_35%,transparent)]"
+        />
+
+        <div className="flex justify-center gap-2">
+          {pokemon.types.map((t) => (
+            <TypeBadge key={t} type={t} />
+          ))}
+        </div>
+
+        <p className="mt-4 text-center text-sm leading-relaxed text-muted-foreground">
+          {pokemon.description}
+        </p>
+
+        <div className="mt-6 space-y-2">
+          {STAT_LEGEND.map((s) => (
+            <StatBar key={s.abbr} label={s.abbr} value={pokemon[s.abbr === "HP" ? "hp" : s.abbr === "ATQ" ? "attack" : s.abbr === "DEF" ? "defense" : "speed"]} />
+          ))}
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-border bg-secondary/40 p-4">
+          <h3 className="text-xs font-bold tracking-widest text-muted-foreground uppercase">
+            O que significam as siglas?
+          </h3>
+          <dl className="mt-3 space-y-2.5">
+            {STAT_LEGEND.map((s) => (
+              <div key={s.abbr} className="flex gap-3 text-sm">
+                <dt className="w-12 shrink-0 font-bold text-primary">{s.abbr}</dt>
+                <dd className="text-muted-foreground">
+                  <strong className="text-foreground">{s.name}</strong> — {s.hint}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
     </div>
   );
 }
