@@ -10,13 +10,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Explore a Pokédex, jogue o jogo da memória, teste seus conhecimentos no quiz e descubra curiosidades do universo Pokémon.",
+          "No PokéDX você explora a Pokédex com 50 Pokémon, joga o jogo da memória em 25 fases e testa seus conhecimentos no quiz com 25 perguntas.",
       },
       { property: "og:title", content: "PokéDX — Pokédex, Jogos e Curiosidades Pokémon" },
       {
         property: "og:description",
         content:
-          "Explore a Pokédex, jogue o jogo da memória, teste seus conhecimentos no quiz e descubra curiosidades do universo Pokémon.",
+          "No PokéDX você explora a Pokédex com 50 Pokémon, joga o jogo da memória em 25 fases e testa seus conhecimentos no quiz com 25 perguntas.",
       },
       { property: "og:type", content: "website" },
       { property: "og:image", content: spriteUrl(6) },

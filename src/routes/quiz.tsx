@@ -10,12 +10,14 @@ export const Route = createFileRoute("/quiz")({
       { title: "Quiz Pokémon — PokéDX" },
       {
         name: "description",
-        content: "Teste seus conhecimentos sobre o universo Pokémon com 25 perguntas em 3 etapas.",
+        content:
+          "Teste seus conhecimentos no quiz do PokéDX: 25 perguntas sobre o universo Pokémon, em 3 etapas.",
       },
       { property: "og:title", content: "Quiz Pokémon — PokéDX" },
       {
         property: "og:description",
-        content: "Teste seus conhecimentos sobre o universo Pokémon com 25 perguntas em 3 etapas.",
+        content:
+          "Teste seus conhecimentos no quiz do PokéDX: 25 perguntas sobre o universo Pokémon, em 3 etapas.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

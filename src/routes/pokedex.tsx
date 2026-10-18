@@ -17,12 +17,14 @@ export const Route = createFileRoute("/pokedex")({
       { title: "Pokédex — PokéDX" },
       {
         name: "description",
-        content: "Navegue pelo catálogo de Pokémon clássicos e raros, com tipos, estatísticas e descrições.",
+        content:
+          "Na Pokédex do PokéDX você conhece 50 Pokémon clássicos e raros, com tipos, estatísticas e histórias.",
       },
       { property: "og:title", content: "Pokédex — PokéDX" },
       {
         property: "og:description",
-        content: "Navegue pelo catálogo de Pokémon clássicos e raros, com tipos, estatísticas e descrições.",
+        content:
+          "Na Pokédex do PokéDX você conhece 50 Pokémon clássicos e raros, com tipos, estatísticas e histórias.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
