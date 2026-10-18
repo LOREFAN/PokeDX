@@ -78,19 +78,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PokéDX — Pokédex, Jogos e Curiosidades Pokémon" },
+      { title: "PokéDX — Catálogo, Jogos e Curiosidades Pokémon" },
       {
         name: "description",
         content:
-          "PokéDX reúne a Pokédex com 50 Pokémon, o jogo da memória em 25 fases e o quiz com 25 perguntas em 3 etapas.",
+          "PokéDX reúne o catálogo com 50 Pokémon, o jogo da memória em 25 fases e o quiz com 25 perguntas em 3 etapas.",
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "PokéDX" },
-      { property: "og:title", content: "PokéDX — Pokédex, Jogos e Curiosidades Pokémon" },
+      { property: "og:title", content: "PokéDX — Catálogo, Jogos e Curiosidades Pokémon" },
       {
         property: "og:description",
         content:
-          "PokéDX reúne a Pokédex com 50 Pokémon, o jogo da memória em 25 fases e o quiz com 25 perguntas em 3 etapas.",
+          "PokéDX reúne o catálogo com 50 Pokémon, o jogo da memória em 25 fases e o quiz com 25 perguntas em 3 etapas.",
       },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "PokéDX" },

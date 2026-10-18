@@ -6,17 +6,17 @@ import { CURIOSITIES, POKEDEX, spriteUrl } from "@/lib/pokemon";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PokéDX — Pokédex, Jogos e Curiosidades Pokémon" },
+      { title: "PokéDX — Catálogo, Jogos e Curiosidades Pokémon" },
       {
         name: "description",
         content:
-          "No PokéDX você explora a Pokédex com 50 Pokémon, joga o jogo da memória em 25 fases e testa seus conhecimentos no quiz com 25 perguntas.",
+          "No PokéDX você explora o catálogo com 50 Pokémon, joga o jogo da memória em 25 fases e testa seus conhecimentos no quiz com 25 perguntas.",
       },
-      { property: "og:title", content: "PokéDX — Pokédex, Jogos e Curiosidades Pokémon" },
+      { property: "og:title", content: "PokéDX — Catálogo, Jogos e Curiosidades Pokémon" },
       {
         property: "og:description",
         content:
-          "No PokéDX você explora a Pokédex com 50 Pokémon, joga o jogo da memória em 25 fases e testa seus conhecimentos no quiz com 25 perguntas.",
+          "No PokéDX você explora o catálogo com 50 Pokémon, joga o jogo da memória em 25 fases e testa seus conhecimentos no quiz com 25 perguntas.",
       },
       { property: "og:type", content: "website" },
       { property: "og:image", content: spriteUrl(6) },
@@ -46,14 +46,14 @@ function Home() {
             Explore, jogue e vire um <span className="text-primary">Mestre Pokémon</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
-            Navegue pela Pokédex, desafie sua memória e prove seus conhecimentos no quiz. Tudo em um só site.
+            Navegue pelo PokéDX, desafie sua memória e prove seus conhecimentos no quiz. Tudo em um só site.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               to="/pokedex"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground transition-transform hover:scale-105 card-glow"
             >
-              Abrir a Pokédex <ArrowRight className="size-4" />
+              Abrir o PokéDX <ArrowRight className="size-4" />
             </Link>
             <Link
               to="/quiz"
@@ -86,7 +86,7 @@ function Home() {
             {
               to: "/pokedex",
               icon: ListChecks,
-              title: "Pokédex",
+              title: "PokéDX",
               text: "Conheça os Pokémon com tipos, estatísticas e descrições.",
             },
             {

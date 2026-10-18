@@ -14,17 +14,17 @@ import {
 export const Route = createFileRoute("/pokedex")({
   head: () => ({
     meta: [
-      { title: "Pokédex — PokéDX" },
+      { title: "PokéDX — Catálogo de Pokémon" },
       {
         name: "description",
         content:
-          "Na Pokédex do PokéDX você conhece 50 Pokémon clássicos e raros, com tipos, estatísticas e histórias.",
+          "No PokéDX você conhece 50 Pokémon clássicos e raros, com tipos, estatísticas e histórias.",
       },
-      { property: "og:title", content: "Pokédex — PokéDX" },
+      { property: "og:title", content: "PokéDX — Catálogo de Pokémon" },
       {
         property: "og:description",
         content:
-          "Na Pokédex do PokéDX você conhece 50 Pokémon clássicos e raros, com tipos, estatísticas e histórias.",
+          "No PokéDX você conhece 50 Pokémon clássicos e raros, com tipos, estatísticas e histórias.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -177,7 +177,7 @@ function Pokedex() {
       <main className="mx-auto max-w-6xl px-4 py-12">
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-extrabold tracking-tight text-glow">
-            Poké<span className="text-primary">dex</span>
+            Poké<span className="text-primary">DX</span>
           </h1>
           <p className="mt-3 text-muted-foreground">
             {POKEDEX.length} Pokémon no catálogo — pesquise pelo nome ou filtre por categoria.

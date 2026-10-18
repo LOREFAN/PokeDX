@@ -3,7 +3,7 @@ import { Sparkles } from "lucide-react";
 
 const LINKS = [
   { to: "/", label: "Início" },
-  { to: "/pokedex", label: "Pokédex" },
+  { to: "/pokedex", label: "PokéDX" },
   { to: "/memoria", label: "Jogo da Memória" },
   { to: "/quiz", label: "Quiz" },
 ] as const;
