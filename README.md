@@ -1,6 +1,9 @@
-# Welcome to your Lovable project
+# PokéDX
 
-This project was built with [Lovable](https://lovable.dev).
+Site de fã do universo Pokémon: Pokédex com 50 Pokémon (clássicos e raros),
+jogo da memória em 25 fases e quiz com 25 perguntas em 3 etapas.
+
+Este projeto foi construído com [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 

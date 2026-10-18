@@ -10,12 +10,14 @@ export const Route = createFileRoute("/memoria")({
       { title: "Jogo da Memória — PokéDX" },
       {
         name: "description",
-        content: "Vire as cartas e encontre todos os pares de Pokémon em 25 fases cada vez mais difíceis.",
+        content:
+          "No PokéDX, vire as cartas e encontre todos os pares de Pokémon em 25 fases cada vez mais difíceis.",
       },
       { property: "og:title", content: "Jogo da Memória — PokéDX" },
       {
         property: "og:description",
-        content: "Vire as cartas e encontre todos os pares de Pokémon em 25 fases cada vez mais difíceis.",
+        content:
+          "No PokéDX, vire as cartas e encontre todos os pares de Pokémon em 25 fases cada vez mais difíceis.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

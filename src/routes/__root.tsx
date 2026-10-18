@@ -82,16 +82,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Explore a Pokédex, jogue o jogo da memória, teste seus conhecimentos no quiz e descubra curiosidades do universo Pokémon.",
+          "PokéDX reúne a Pokédex com 50 Pokémon, o jogo da memória em 25 fases e o quiz com 25 perguntas em 3 etapas.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "PokéDX" },
+      { property: "og:title", content: "PokéDX — Pokédex, Jogos e Curiosidades Pokémon" },
+      {
+        property: "og:description",
+        content:
+          "PokéDX reúne a Pokédex com 50 Pokémon, o jogo da memória em 25 fases e o quiz com 25 perguntas em 3 etapas.",
+      },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "PokéDX" },
+      { name: "theme-color", content: "#0F172A" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),
   shellComponent: RootShell,
