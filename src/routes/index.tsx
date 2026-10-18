@@ -6,13 +6,13 @@ import { CURIOSITIES, POKEDEX, spriteUrl } from "@/lib/pokemon";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PokéVerso — Pokédex, Jogos e Curiosidades Pokémon" },
+      { title: "PokéDX — Pokédex, Jogos e Curiosidades Pokémon" },
       {
         name: "description",
         content:
           "Explore a Pokédex, jogue o jogo da memória, teste seus conhecimentos no quiz e descubra curiosidades do universo Pokémon.",
       },
-      { property: "og:title", content: "PokéVerso — Pokédex, Jogos e Curiosidades Pokémon" },
+      { property: "og:title", content: "PokéDX — Pokédex, Jogos e Curiosidades Pokémon" },
       {
         property: "og:description",
         content:
@@ -134,7 +134,7 @@ function Home() {
       </section>
 
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        PokéVerso — feito por fãs, para fãs. Pokémon é marca da Nintendo / Game Freak.
+        PokéDX — feito por fãs, para fãs. Pokémon é marca da Nintendo / Game Freak.
       </footer>
     </div>
   );

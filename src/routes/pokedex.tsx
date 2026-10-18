@@ -14,12 +14,12 @@ import {
 export const Route = createFileRoute("/pokedex")({
   head: () => ({
     meta: [
-      { title: "Pokédex — PokéVerso" },
+      { title: "Pokédex — PokéDX" },
       {
         name: "description",
         content: "Navegue pelo catálogo de Pokémon clássicos e raros, com tipos, estatísticas e descrições.",
       },
-      { property: "og:title", content: "Pokédex — PokéVerso" },
+      { property: "og:title", content: "Pokédex — PokéDX" },
       {
         property: "og:description",
         content: "Navegue pelo catálogo de Pokémon clássicos e raros, com tipos, estatísticas e descrições.",

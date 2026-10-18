@@ -17,7 +17,7 @@ export function SiteNav() {
             <Sparkles className="size-4" />
           </span>
           <span className="text-lg">
-            Poké<span className="text-primary">Verso</span>
+            Poké<span className="text-primary">DX</span>
           </span>
         </Link>
         <div className="flex items-center gap-1 sm:gap-2">
