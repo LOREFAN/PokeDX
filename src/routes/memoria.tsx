@@ -1,21 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
-import { RotateCcw, Trophy } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronRight, RotateCcw, Trophy } from "lucide-react";
 import { SiteNav } from "@/components/site-nav";
 import { POKEDEX, spriteUrl } from "@/lib/pokemon";
 
 export const Route = createFileRoute("/memoria")({
   head: () => ({
     meta: [
-      { title: "Jogo da Memória — PokéVerse" },
+      { title: "Jogo da Memória — PokéVerso" },
       {
         name: "description",
-        content: "Vire as cartas e encontre todos os pares de Pokémon no menor número de jogadas.",
+        content: "Vire as cartas e encontre todos os pares de Pokémon em 25 fases cada vez mais difíceis.",
       },
-      { property: "og:title", content: "Jogo da Memória — PokéVerse" },
+      { property: "og:title", content: "Jogo da Memória — PokéVerso" },
       {
         property: "og:description",
-        content: "Vire as cartas e encontre todos os pares de Pokémon no menor número de jogadas.",
+        content: "Vire as cartas e encontre todos os pares de Pokémon em 25 fases cada vez mais difíceis.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -24,14 +24,22 @@ export const Route = createFileRoute("/memoria")({
   component: MemoryGame,
 });
 
+const TOTAL_PHASES = 25;
+
+// Fase 1 começa com 4 pares e vai subindo até 12 pares na fase 25.
+function pairsForPhase(phase: number) {
+  return Math.min(12, 4 + Math.floor((phase - 1) / 3));
+}
+
 interface Card {
   key: string;
   pokemonId: number;
   name: string;
 }
 
-function buildDeck(): Card[] {
-  const chosen = [...POKEDEX].sort(() => Math.random() - 0.5).slice(0, 8);
+function buildDeck(phase: number): Card[] {
+  const count = pairsForPhase(phase);
+  const chosen = [...POKEDEX].sort(() => Math.random() - 0.5).slice(0, count);
   const doubled = chosen.flatMap((p) => [
     { key: `${p.id}-a`, pokemonId: p.id, name: p.name },
     { key: `${p.id}-b`, pokemonId: p.id, name: p.name },
@@ -40,13 +48,16 @@ function buildDeck(): Card[] {
 }
 
 function MemoryGame() {
-  const [deck, setDeck] = useState<Card[]>(() => buildDeck());
+  const [phase, setPhase] = useState(1);
+  const [deck, setDeck] = useState<Card[]>(() => buildDeck(1));
   const [flipped, setFlipped] = useState<string[]>([]);
   const [matched, setMatched] = useState<Set<number>>(new Set());
   const [moves, setMoves] = useState(0);
   const [locked, setLocked] = useState(false);
 
-  const won = matched.size === 8;
+  const pairs = pairsForPhase(phase);
+  const won = matched.size === pairs;
+  const lastPhase = phase === TOTAL_PHASES;
 
   useEffect(() => {
     if (flipped.length !== 2) return;
@@ -73,46 +84,78 @@ function MemoryGame() {
     });
   }
 
-  function reset() {
-    setDeck(buildDeck());
+  function startPhase(nextPhase: number) {
+    setPhase(nextPhase);
+    setDeck(buildDeck(nextPhase));
     setFlipped([]);
     setMatched(new Set());
     setMoves(0);
     setLocked(false);
   }
 
-  const best = useMemo(() => moves, [moves]);
+  const cols = pairs <= 6 ? "grid-cols-4" : pairs <= 9 ? "grid-cols-4 sm:grid-cols-6" : "grid-cols-4 sm:grid-cols-6 lg:grid-cols-8";
 
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
-      <main className="mx-auto max-w-4xl px-4 py-12">
+      <main className="mx-auto max-w-5xl px-4 py-12">
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-extrabold tracking-tight text-glow">
             Jogo da <span className="text-primary">Memória</span>
           </h1>
           <p className="mt-3 text-muted-foreground">
-            Encontre os 8 pares de Pokémon. Jogadas: <strong className="text-foreground">{moves}</strong>
+            Fase <strong className="text-foreground">{phase}</strong> de {TOTAL_PHASES} — encontre os{" "}
+            <strong className="text-foreground">{pairs}</strong> pares. Jogadas:{" "}
+            <strong className="text-foreground">{moves}</strong>
           </p>
+          <div className="mx-auto mt-4 h-1.5 max-w-md overflow-hidden rounded-full bg-secondary">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-primary to-accent transition-all"
+              style={{ width: `${(phase / TOTAL_PHASES) * 100}%` }}
+            />
+          </div>
           <button
-            onClick={reset}
+            onClick={() => startPhase(phase)}
             className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2 text-sm font-semibold transition-colors hover:bg-secondary"
           >
-            <RotateCcw className="size-4" /> Reiniciar
+            <RotateCcw className="size-4" /> Reiniciar fase
           </button>
         </div>
 
         {won && (
           <div className="mb-8 rounded-2xl border border-accent/50 bg-accent/10 p-6 text-center">
             <Trophy className="mx-auto mb-2 size-8 text-accent" />
-            <p className="text-xl font-bold">Parabéns, você venceu!</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Todos os pares encontrados em {best} jogadas.
-            </p>
+            {lastPhase ? (
+              <>
+                <p className="text-xl font-bold">Incrível! Você completou todas as {TOTAL_PHASES} fases!</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Você é um verdadeiro Mestre da Memória Pokémon.
+                </p>
+                <button
+                  onClick={() => startPhase(1)}
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground transition-transform hover:scale-105"
+                >
+                  <RotateCcw className="size-4" /> Jogar de novo
+                </button>
+              </>
+            ) : (
+              <>
+                <p className="text-xl font-bold">Fase {phase} completa!</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Todos os pares encontrados em {moves} jogadas.
+                </p>
+                <button
+                  onClick={() => startPhase(phase + 1)}
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground transition-transform hover:scale-105"
+                >
+                  Próxima fase <ChevronRight className="size-4" />
+                </button>
+              </>
+            )}
           </div>
         )}
 
-        <div className="grid grid-cols-4 gap-3 sm:gap-4">
+        <div className={`grid gap-3 sm:gap-4 ${cols}`}>
           {deck.map((card) => {
             const isUp = flipped.includes(card.key) || matched.has(card.pokemonId);
             return (
