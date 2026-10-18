@@ -2,20 +2,20 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { CheckCircle2, RotateCcw, XCircle } from "lucide-react";
 import { SiteNav } from "@/components/site-nav";
-import { QUIZ } from "@/lib/pokemon";
+import { QUIZ, QUIZ_STAGE_LABELS } from "@/lib/pokemon";
 
 export const Route = createFileRoute("/quiz")({
   head: () => ({
     meta: [
-      { title: "Quiz Pokémon — PokéVerse" },
+      { title: "Quiz Pokémon — PokéVerso" },
       {
         name: "description",
-        content: "Teste seus conhecimentos sobre o universo Pokémon com 8 perguntas desafiadoras.",
+        content: "Teste seus conhecimentos sobre o universo Pokémon com 25 perguntas em 3 etapas.",
       },
-      { property: "og:title", content: "Quiz Pokémon — PokéVerse" },
+      { property: "og:title", content: "Quiz Pokémon — PokéVerso" },
       {
         property: "og:description",
-        content: "Teste seus conhecimentos sobre o universo Pokémon com 8 perguntas desafiadoras.",
+        content: "Teste seus conhecimentos sobre o universo Pokémon com 25 perguntas em 3 etapas.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -31,6 +31,8 @@ function Quiz() {
   const [done, setDone] = useState(false);
 
   const question = QUIZ[current]!;
+  const stage = question.stage;
+  const isLastOfStage = current + 1 === QUIZ.length || QUIZ[current + 1]!.stage !== stage;
 
   function pick(index: number) {
     if (picked !== null) return;
@@ -56,9 +58,9 @@ function Quiz() {
   const verdict =
     score === QUIZ.length
       ? "Perfeito! Você é um verdadeiro Mestre Pokémon!"
-      : score >= 6
+      : score >= 18
         ? "Muito bem! Você conhece bastante o mundo Pokémon."
-        : score >= 3
+        : score >= 10
           ? "Nada mal! Continue treinando para virar um mestre."
           : "Hora de revisitar a Pokédex e tentar de novo!";
 
@@ -71,7 +73,7 @@ function Quiz() {
             Quiz <span className="text-primary">Pokémon</span>
           </h1>
           <p className="mt-3 text-muted-foreground">
-            {QUIZ.length} perguntas para testar seus conhecimentos.
+            {QUIZ.length} perguntas em 3 etapas para testar seus conhecimentos.
           </p>
         </div>
 
@@ -90,12 +92,13 @@ function Quiz() {
           </div>
         ) : (
           <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
-            <div className="mb-6 flex items-center justify-between text-sm text-muted-foreground">
-              <span>
-                Pergunta {current + 1} de {QUIZ.length}
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-2 text-sm text-muted-foreground">
+              <span className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                Etapa {stage} — {QUIZ_STAGE_LABELS[stage]}
               </span>
               <span>
-                Pontos: <strong className="text-accent">{score}</strong>
+                Pergunta {current + 1} de {QUIZ.length} · Pontos:{" "}
+                <strong className="text-accent">{score}</strong>
               </span>
             </div>
             <div className="mb-6 h-1.5 overflow-hidden rounded-full bg-secondary">
@@ -131,6 +134,11 @@ function Quiz() {
                 );
               })}
             </div>
+            {picked !== null && isLastOfStage && stage < 3 && (
+              <p className="mt-4 text-center text-sm font-medium text-accent">
+                Preparando a Etapa {stage + 1} — {QUIZ_STAGE_LABELS[stage + 1]}...
+              </p>
+            )}
           </div>
         )}
       </main>

@@ -3,20 +3,20 @@ import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { SiteNav } from "@/components/site-nav";
 import { TypeBadge } from "@/components/type-badge";
-import { POKEDEX, spriteUrl } from "@/lib/pokemon";
+import { CATEGORY_LABELS, POKEDEX, spriteUrl, type PokemonCategory } from "@/lib/pokemon";
 
 export const Route = createFileRoute("/pokedex")({
   head: () => ({
     meta: [
-      { title: "Pokédex — PokéVerse" },
+      { title: "Pokédex — PokéVerso" },
       {
         name: "description",
-        content: "Navegue pelo catálogo de Pokémon com tipos, estatísticas e descrições detalhadas.",
+        content: "Navegue pelo catálogo de Pokémon clássicos e raros, com tipos, estatísticas e descrições.",
       },
-      { property: "og:title", content: "Pokédex — PokéVerse" },
+      { property: "og:title", content: "Pokédex — PokéVerso" },
       {
         property: "og:description",
-        content: "Navegue pelo catálogo de Pokémon com tipos, estatísticas e descrições detalhadas.",
+        content: "Navegue pelo catálogo de Pokémon clássicos e raros, com tipos, estatísticas e descrições.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -41,14 +41,26 @@ function StatBar({ label, value }: { label: string; value: number }) {
   );
 }
 
+type Filter = "todos" | PokemonCategory;
+
+const FILTERS: { value: Filter; label: string }[] = [
+  { value: "todos", label: "Todos" },
+  { value: "classico", label: CATEGORY_LABELS.classico },
+  { value: "raro", label: CATEGORY_LABELS.raro },
+];
+
 function Pokedex() {
   const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState<Filter>("todos");
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return POKEDEX;
-    return POKEDEX.filter((p) => p.name.toLowerCase().includes(q));
-  }, [query]);
+    return POKEDEX.filter((p) => {
+      if (filter !== "todos" && p.category !== filter) return false;
+      if (q && !p.name.toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }, [query, filter]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -59,7 +71,7 @@ function Pokedex() {
             Poké<span className="text-primary">dex</span>
           </h1>
           <p className="mt-3 text-muted-foreground">
-            {POKEDEX.length} Pokémon no catálogo — pesquise pelo nome.
+            {POKEDEX.length} Pokémon no catálogo — pesquise pelo nome ou filtre por categoria.
           </p>
           <div className="relative mx-auto mt-6 max-w-md">
             <Search className="absolute top-1/2 left-4 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -69,6 +81,21 @@ function Pokedex() {
               placeholder="Buscar Pokémon..."
               className="w-full rounded-full border border-border bg-card py-3 pr-4 pl-11 text-sm outline-none placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/30"
             />
+          </div>
+          <div className="mt-4 flex justify-center gap-2">
+            {FILTERS.map((f) => (
+              <button
+                key={f.value}
+                onClick={() => setFilter(f.value)}
+                className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+                  filter === f.value
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -100,6 +127,13 @@ function Pokedex() {
                   className="mx-auto my-3 size-32 transition-transform group-hover:scale-110"
                 />
                 <h2 className="text-center text-lg font-bold">{p.name}</h2>
+                <p
+                  className={`mt-1 text-center text-xs font-semibold tracking-wide uppercase ${
+                    p.category === "raro" ? "text-accent" : "text-muted-foreground"
+                  }`}
+                >
+                  {CATEGORY_LABELS[p.category]}
+                </p>
                 <p className="mt-2 line-clamp-3 text-center text-xs leading-relaxed text-muted-foreground">
                   {p.description}
                 </p>
