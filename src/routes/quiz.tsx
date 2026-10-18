@@ -64,7 +64,7 @@ function Quiz() {
         ? "Muito bem! Você conhece bastante o mundo Pokémon."
         : score >= 10
           ? "Nada mal! Continue treinando para virar um mestre."
-          : "Hora de revisitar a Pokédex e tentar de novo!";
+          : "Hora de revisitar o PokéDX e tentar de novo!";
 
   return (
     <div className="min-h-screen bg-background">
