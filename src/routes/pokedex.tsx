@@ -151,6 +151,7 @@ const FILTERS: { value: Filter; label: string }[] = [
 function Pokedex() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<Filter>("todos");
+  const [selected, setSelected] = useState<Pokemon | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -207,7 +208,13 @@ function Pokedex() {
             {filtered.map((p) => (
               <article
                 key={p.id}
-                className="group rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-1 hover:border-primary/60 hover:card-glow"
+                onClick={() => setSelected(p)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") setSelected(p);
+                }}
+                className="group cursor-pointer rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-1 hover:border-primary/60 hover:card-glow"
               >
                 <div className="flex items-start justify-between">
                   <span className="text-xs font-bold text-muted-foreground">
@@ -246,6 +253,8 @@ function Pokedex() {
             ))}
           </div>
         )}
+
+        {selected && <PokemonDetail pokemon={selected} onClose={() => setSelected(null)} />}
       </main>
     </div>
   );
